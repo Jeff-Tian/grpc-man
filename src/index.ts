@@ -1,6 +1,6 @@
-import { Greeter } from './Greeter';
-import Client from './Client';
 import asyncCall, { asyncCallResultHandler } from './AsyncCall';
+import Client from './Client';
+import { Greeter } from './Greeter';
 import * as readline from 'readline';
 
 const [exe, exeFilePath, endpoint, protoFilePath, packageName, service] = process.argv;

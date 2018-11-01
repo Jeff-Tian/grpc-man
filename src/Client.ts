@@ -4,10 +4,10 @@ import * as grpc from 'grpc';
 function createClientService(endpoint: string, protoPath: string, packageName: string, service: string): any {
 
   const packageDefinition = protoLoader.loadSync(protoPath, {
+    defaults: true,
+    enums: String,
     keepCase: true,
     longs: String,
-    enums: String,
-    defaults: true,
     oneofs: true,
   });
 
@@ -27,7 +27,7 @@ function createClientService(endpoint: string, protoPath: string, packageName: s
 }
 
 export default class Client {
-  static connect(endpoint: string, protoPath: string, packageName: string, service: string) {
+  public static connect(endpoint: string, protoPath: string, packageName: string, service: string) {
     return createClientService(endpoint, protoPath, packageName, service);
   }
 }
