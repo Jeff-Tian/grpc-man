@@ -1,7 +1,7 @@
-export default (asyncWithCallback: (callback: (err: any, result: any) => void) => void, context: any) => {
+export default (asyncWithClassicalCallback: (callback: (err: any, result: any) => void) => void, context: any) => {
   return async (...args: any): Promise<any> => {
     return new Promise((resolve, reject) => {
-      asyncWithCallback.call(context, ...args, (err: any, result: any) => {
+      asyncWithClassicalCallback.call(context, ...args, (err: any, result: any) => {
         if (!err) {
           resolve(result);
         } else {
@@ -12,11 +12,23 @@ export default (asyncWithCallback: (callback: (err: any, result: any) => void) =
   };
 }
 
-export function asyncCall(asyncWithCallback: (callback: () => void) => void, context: any): () => void {
+export function asyncCall(asyncWithDumpCallback: (callback: () => void) => void, context: any): () => void {
   return async (): Promise<any> => {
     return new Promise((resolve, reject) => {
-      asyncWithCallback.call(context, () => {
+      asyncWithDumpCallback.call(context, () => {
         resolve();
+      });
+    });
+  };
+}
+
+export function asyncCallResultHandler(asyncWithResultCallback: (question: string, callback: (answer: string) => void) => void, context: any): (question: string) => Promise<string> {
+  return async (question: string): Promise<any> => {
+    return new Promise((resolve, reject) => {
+      asyncWithResultCallback.call(context, question, (res: any) => {
+        resolve(res);
+
+        context.close();
       });
     });
   };
