@@ -1,5 +1,5 @@
 import { Greeter } from '../index';
 
 test('My Greeter', () => {
-  expect(Greeter('Jeff Tian')).toBe('Hello Jeff Tian');
+  expect(Greeter('node', '.', 'localhost:8081', '.')).toBe('You started . by node, and it will start a gRPC client connecting to localhost:8081 and load the proto file from .');
 });
