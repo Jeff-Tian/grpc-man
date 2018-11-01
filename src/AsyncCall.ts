@@ -10,7 +10,7 @@ export default (asyncWithClassicalCallback: (callback: (err: any, result: any) =
       });
     });
   };
-}
+};
 
 export function asyncCall(asyncWithDumpCallback: (callback: () => void) => void, context: any): () => void {
   return async (): Promise<any> => {
@@ -22,7 +22,10 @@ export function asyncCall(asyncWithDumpCallback: (callback: () => void) => void,
   };
 }
 
-export function asyncCallResultHandler(asyncWithResultCallback: (question: string, callback: (answer: string) => void) => void, context: any): (question: string) => Promise<string> {
+export function asyncCallResultHandler(
+  asyncWithResultCallback: (question: string, callback: (answer: string) => void) => void,
+  context: any,
+): (question: string) => Promise<string> {
   return async (question: string): Promise<any> => {
     return new Promise((resolve, reject) => {
       asyncWithResultCallback.call(context, question, (res: any) => {

@@ -2,7 +2,6 @@ import * as protoLoader from '@grpc/proto-loader';
 import * as grpc from 'grpc';
 
 function createClientService(endpoint: string, protoPath: string, packageName: string, service: string): any {
-
   const packageDefinition = protoLoader.loadSync(protoPath, {
     defaults: true,
     enums: String,
