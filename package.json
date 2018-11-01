@@ -4,6 +4,7 @@
   "description": "A client to call gRPC server methods on the fly. 一个 gRPC 客户端，可以灵活地调用 gRPC 服务。",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/Jeff-Tian/grpc-man/issues"
   },
-  "homepage": "https://github.com/Jeff-Tian/grpc-man#readme"
+  "homepage": "https://github.com/Jeff-Tian/grpc-man#readme",
+  "devDependencies": {
+    "typescript": "^3.1.5"
+  }
 }
