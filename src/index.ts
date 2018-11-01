@@ -1,7 +1,7 @@
+import * as readline from 'readline';
 import asyncCall, { asyncCallResultHandler } from './AsyncCall';
 import Client from './Client';
 import { Greeter } from './Greeter';
-import * as readline from 'readline';
 
 const [exe, exeFilePath, endpoint, protoFilePath, packageName, service] = process.argv;
 
@@ -22,7 +22,7 @@ process.nextTick(async () => {
 
   const input: string = await asyncCallResultHandler(rl.question, rl)('Input method name and parameters, for example: get {"arg1": "value1"} >>>: ');
   const parts = input.split(' ');
-  let args = parts[1] ? JSON.parse(parts[1]) : {};
+  const args = parts[1] ? JSON.parse(parts[1]) : {};
   console.log('will call method: ', service, '.', parts[0], ' with args: ', args);
   const res = await asyncCall(client[parts[0]], client)(args);
   console.log(res);
