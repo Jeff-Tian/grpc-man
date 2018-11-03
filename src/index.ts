@@ -7,7 +7,7 @@ const [exe, exeFilePath, endpoint, protoFilePath, packageName, service] = proces
 
 Greeter(exe, exeFilePath, endpoint, protoFilePath);
 
-const client = Client.connect(
+export const client = Client.connect(
   endpoint,
   protoFilePath,
   packageName,
@@ -19,18 +19,20 @@ if (client === null) {
   process.exit(1);
 }
 
-process.nextTick(async () => {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
+if (require.main === module) {
+  process.nextTick(async () => {
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
 
-  const input: string = await asyncCallResultHandler(rl.question, rl)(
-    'Input method name and parameters, for example: get {"arg1": "value1"} >>>: ',
-  );
-  const parts = input.split(' ');
-  const args = parts[1] ? JSON.parse(parts[1]) : {};
-  console.log('will call method: ', service, '.', parts[0], ' with args: ', args);
-  const res = await asyncCall(client[parts[0]], client)(args);
-  console.log(res);
-});
+    const input: string = await asyncCallResultHandler(rl.question, rl)(
+      'Input method name and parameters, for example: get {"arg1": "value1"} >>>: ',
+    );
+    const parts = input.split(' ');
+    const args = parts[1] ? JSON.parse(parts[1]) : {};
+    console.log('will call method: ', service, '.', parts[0], ' with args: ', args);
+    const res = await asyncCall(client[parts[0]], client)(args);
+    console.log(res);
+  });
+}
