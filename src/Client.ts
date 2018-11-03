@@ -19,7 +19,7 @@ function createClientService(endpoint: string, protoPath: string, packageName: s
 
     if (pack) {
       console.log('pack = ', pack);
-      let theCli = new pack[service](endpoint, grpc.credentials.createInsecure());
+      const theCli = new pack[service](endpoint, grpc.credentials.createInsecure());
 
       console.log('theCli = ', theCli);
       return theCli;
