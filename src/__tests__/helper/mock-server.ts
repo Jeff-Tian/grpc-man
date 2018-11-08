@@ -1,7 +1,7 @@
 import * as grpc from 'grpc';
 import * as protoLoader from '@grpc/proto-loader';
 
-const PROTO_PATH = __dirname + '/../proto/hello.proto';
+const PROTO_PATH = __dirname + '/../proto/helloworld.test.proto';
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
   keepCase: true,
   longs: String,

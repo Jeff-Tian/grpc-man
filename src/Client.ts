@@ -1,8 +1,9 @@
 import * as protoLoader from '@grpc/proto-loader';
 import * as grpc from 'grpc';
+import Constructable = jest.Constructable;
 
-function createClientService(endpoint: string, protoPath: string, packageName: string, service: string): any {
-  const packageDefinition = protoLoader.loadSync(protoPath, {
+function getPackageDefinition(protoPath: string): any {
+  const proto = protoLoader.loadSync(protoPath, {
     defaults: true,
     enums: String,
     keepCase: true,
@@ -10,18 +11,21 @@ function createClientService(endpoint: string, protoPath: string, packageName: s
     oneofs: true,
   });
 
-  const p: any = grpc.loadPackageDefinition(packageDefinition);
+  return grpc.loadPackageDefinition(proto);
+}
+
+function createClientService(endpoint: string, protoPath: string, packageName: string, service: string): any {
+  const packageDefinition = getPackageDefinition(protoPath);
+  console.log(JSON.stringify(packageDefinition));
 
   const parts = packageName.split('.');
 
-  if (p[parts[0]]) {
-    const pack = p[parts[0]][parts[1]];
+  if (packageDefinition[parts[0]]) {
+    const pack = packageDefinition[parts[0]][parts[1]];
 
     if (pack) {
-      console.log('pack = ', pack);
       const theCli = new pack[service](endpoint, grpc.credentials.createInsecure());
 
-      console.log('theCli = ', theCli);
       return theCli;
     }
   }
@@ -30,7 +34,26 @@ function createClientService(endpoint: string, protoPath: string, packageName: s
 }
 
 export default class Client {
+  private readonly endpoint: string;
+  private readonly packDef: any;
+
   public static connect(endpoint: string, protoPath: string, packageName: string, service: string) {
     return createClientService(endpoint, protoPath, packageName, service);
+  }
+
+  constructor(endpoint: string, protoPath: string) {
+    this.endpoint = endpoint;
+
+    this.packDef = getPackageDefinition(protoPath);
+  }
+
+  public getService(service: string) {
+    const parts = service.split('.');
+    let s = this.packDef[parts[0]];
+    for (let i = 1; i < parts.length; i++) {
+      s = s[parts[i]];
+    }
+
+    return new s(this.endpoint, grpc.credentials.createInsecure());
   }
 }
