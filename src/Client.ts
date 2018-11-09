@@ -34,12 +34,12 @@ function createClientService(endpoint: string, protoPath: string, packageName: s
 }
 
 export default class Client {
-  private readonly endpoint: string;
-  private readonly packDef: any;
-
   public static connect(endpoint: string, protoPath: string, packageName: string, service: string) {
     return createClientService(endpoint, protoPath, packageName, service);
   }
+
+  private readonly endpoint: string;
+  private readonly packDef: any;
 
   constructor(endpoint: string, protoPath: string) {
     this.endpoint = endpoint;
