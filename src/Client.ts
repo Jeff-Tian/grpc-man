@@ -1,6 +1,5 @@
 import * as protoLoader from '@grpc/proto-loader';
 import * as grpc from 'grpc';
-import Constructable = jest.Constructable;
 
 function getPackageDefinition(protoPath: string): any {
   const proto = protoLoader.loadSync(protoPath, {
@@ -24,9 +23,7 @@ function createClientService(endpoint: string, protoPath: string, packageName: s
     const pack = packageDefinition[parts[0]][parts[1]];
 
     if (pack) {
-      const theCli = new pack[service](endpoint, grpc.credentials.createInsecure());
-
-      return theCli;
+      return new pack[service](endpoint, grpc.credentials.createInsecure());
     }
   }
 
