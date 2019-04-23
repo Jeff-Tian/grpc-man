@@ -1,12 +1,7 @@
 {
-  "extends": [
-    "tslint:recommended",
-    "tslint-config-prettier",
-    "tslint-sonarts"
-  ],
+  "extends": ["tslint:recommended", "tslint-config-prettier", "tslint-sonarts"],
   "rules": {
-    "no-console": [
-      false
-    ]
+    "no-console": [false],
+    "deprecation": true
   }
 }
