@@ -7,6 +7,7 @@ const [exe, exeFilePath, endpoint, protoFilePath, packageName, service] = proces
 
 Greeter(exe, exeFilePath, endpoint, protoFilePath);
 
+// tslint:disable-next-line
 export const client = Client.connect(
   endpoint,
   protoFilePath,

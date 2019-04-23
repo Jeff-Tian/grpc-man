@@ -1,8 +1,17 @@
 # grpc-man
 
-A client to call gRPC server methods on the fly. 一个 gRPC 客户端，可以灵活地调用 gRPC 服务。
+> A client to call gRPC server methods on the fly. 一个 gRPC 客户端，可以灵活地调用 gRPC 服务。
 
-名字灵感来源于 `post-man`。
+> 名字灵感来源于 `post-man`。
+
+[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+[![NPM version](https://badge.fury.io/js/grpc-man.png)](http://badge.fury.io/js/grpc-man)
+[![npm download][download-image]][download-url]
+[![Dependencies Status](https://david-dm.org/Jeff-Tian/grpc-man.png)](https://david-dm.org/jeff-tian/grpc-man)
+
+[download-image]: https://img.shields.io/npm/dm/grpc-man.svg?style=flat-square
+[download-url]: https://npmjs.org/package/grpc-man
 
 # 有什么用？
 

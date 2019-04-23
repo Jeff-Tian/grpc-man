@@ -16,7 +16,7 @@ export function traverseTerminalNodes(
   });
 }
 
-export default function getTerminalNodes(obj: Object) {
+export default function getTerminalNodes(obj: object) {
   const res: any[] = [];
   traverseTerminalNodes(obj, v => res.push(v));
   return res;

@@ -1,6 +1,6 @@
-import deprecated from './helpers/deprecated';
-import getPackageDefinition from './getPackageDefinition';
 import * as grpc from 'grpc';
+import getPackageDefinition from './getPackageDefinition';
+import deprecated from './helpers/deprecated';
 import { traverseTerminalNodes } from './helpers/terminal-node';
 
 /**
@@ -37,8 +37,10 @@ export default class Client {
    */
   @deprecated('use new() instead')
   public static connect(endpoint: string, protoPath: string, packageName: string, service: string) {
+    // tslint:disable-next-line
     return createClientService(endpoint, protoPath, packageName, service);
   }
+  public readonly grpc: any;
 
   private readonly endpoint: string;
 
@@ -46,27 +48,24 @@ export default class Client {
    * @deprecated, will be deleted in the future
    */
   private readonly packDef: any;
-  public readonly grpc: any;
 
   constructor(endpoint: string, protoPath: string) {
     this.endpoint = endpoint;
 
+    // tslint:disable-next-line
     this.packDef = getPackageDefinition.call(this, protoPath);
-    console.log('packdef = before = ', this.packDef, this);
     this.grpc = getPackageDefinition(protoPath);
 
     traverseTerminalNodes(this.grpc, (ServiceClient, key, parent) => {
       parent[key] = new ServiceClient(this.endpoint, grpc.credentials.createInsecure());
 
       for (const method in parent[key]) {
-        let protoMethod = parent[key][method];
-
         if (
-          typeof protoMethod === 'function' &&
-          (protoMethod.toString().startsWith('function (path, serialize, deserialize,') &&
+          typeof parent[key][method] === 'function' &&
+          (parent[key][method].toString().startsWith('function (path, serialize, deserialize,') &&
             method !== 'makeUnaryRequest')
         ) {
-          const original = protoMethod;
+          const original = parent[key][method];
 
           parent[key][method] = (arg: any) => {
             return new Promise((resolve, reject) => {
@@ -91,6 +90,7 @@ export default class Client {
   @deprecated("use grpc's method instead")
   public getService(service: string) {
     const parts = service.split('.');
+    // tslint:disable-next-line
     let s = this.packDef[parts[0]];
     for (let i = 1; i < parts.length; i++) {
       s = s[parts[i]];
