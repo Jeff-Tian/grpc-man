@@ -73,6 +73,12 @@ export default class Client {
               original.call(parent[key], arg, (err: any, res: any) => {
                 if (err) {
                   console.error(`error for calling ${method}: `, err);
+                  if (err.message.startsWith('RPC method not implemented')) {
+                    console.error(
+                      `这通常是由于 proto 文件里定义的 service 与 rpc 方法并没有对应的源码实现。你也可以检查对应于 proto 文件里定义的 service 或者 rpc 方法的地方，有没有拼写错误。`,
+                    );
+                  }
+
                   reject(err);
                 } else {
                   console.log(`success for calling ${method}:`, res);
