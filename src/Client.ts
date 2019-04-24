@@ -68,11 +68,14 @@ export default class Client {
           const original = parent[key][method];
 
           parent[key][method] = (arg: any) => {
+            console.log('calling ', method, ' ...');
             return new Promise((resolve, reject) => {
               original.call(parent[key], arg, (err: any, res: any) => {
                 if (err) {
+                  console.error(`error for calling ${method}: `, err);
                   reject(err);
                 } else {
+                  console.log(`success for calling ${method}:`, res);
                   resolve(res);
                 }
               });
