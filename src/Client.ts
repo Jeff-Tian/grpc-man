@@ -56,6 +56,10 @@ export default class Client {
     this.packDef = getPackageDefinition.call(this, protoPath);
     this.grpc = getPackageDefinition(protoPath);
 
+    this.promisifyGrpcMethods();
+  }
+
+  private promisifyGrpcMethods() {
     traverseTerminalNodes(this.grpc, (ServiceClient, key, parent) => {
       parent[key] = new ServiceClient(this.endpoint, grpc.credentials.createInsecure());
 
