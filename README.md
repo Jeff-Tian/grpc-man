@@ -33,6 +33,18 @@ npm install -g grpc-man
 npm install --save-dev grpc-man
 ```
 
+# 用在 `javascript` 项目里：
+
+```javascript
+import GrpcClient from 'grpc-man/lib/Client';
+
+async function main() {
+  const client = new GrpcClient('<yourhost>:<your port>', __dirname + 'your.proto');
+
+  await client.grpc.youpackage.YourService.yourMethod(arg);
+}
+```
+
 # 用在测试里:
 
 如果你的项目使用 gRPC 为客户提供服务，那么在你的项目的自动化测试中，你可以用它来帮助调用你的 gRPC 服务:
@@ -43,7 +55,7 @@ npm install --save-dev grpc-man
 
 ```typescript
 import assert = require('assert');
-import GrpcClient from 'grpc-man';
+import GrpcClient from 'grpc-man/lib/Client';
 
 describe('grpc', () => {
   it('可以打招呼', async () => {
@@ -57,16 +69,16 @@ describe('grpc', () => {
 
 如果你采用 `jest` 测试框架，那么可以参考[本包的测试代码](./src/__tests__/Client.test.ts)。
 
-# Call it from command line
+# 命令行使用
 
 ```bash
-grpc-man <endpoint> <protoFilePath
+grpc-man <endpoint> <protoFilePath>
 
 # for example:
 grpc-man localhost:8080 /path/to/proto_file
 ```
 
-# Run locally
+# 本地运行
 
 ```bash
 npm start <endpoint> <protoFilePath>

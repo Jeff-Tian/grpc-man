@@ -1,8 +1,8 @@
 import * as grpc from 'grpc';
 import getPackageDefinition from './getPackageDefinition';
 import deprecated from './helpers/deprecated';
-import { traverseTerminalNodes } from './helpers/terminal-node';
 import RpcErrorHinter from './helpers/rpc-error-hinter';
+import { traverseTerminalNodes } from './helpers/terminal-node';
 
 /**
  * @deprecated, will be deleted in the future
