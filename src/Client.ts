@@ -56,10 +56,10 @@ export default class Client {
     this.packDef = getPackageDefinition.call(this, protoPath);
     this.grpc = getPackageDefinition(protoPath);
 
-    this.promisifyGrpcMethods();
+    this.promisifyAllGrpcMethods();
   }
 
-  private promisifyGrpcMethods() {
+  private promisifyAllGrpcMethods() {
     traverseTerminalNodes(this.grpc, (ServiceClient, key, parent) => {
       parent[key] = new ServiceClient(this.endpoint, grpc.credentials.createInsecure());
 
@@ -71,29 +71,54 @@ export default class Client {
         ) {
           const original = parent[key][method];
 
-          parent[key][method] = (arg: any) => {
-            console.log('calling ', method, ' ...');
-            return new Promise((resolve, reject) => {
-              original.call(parent[key], arg, (err: any, res: any) => {
-                if (err) {
-                  console.error(`error for calling ${method}: `, err);
-                  if (err.message.startsWith('RPC method not implemented')) {
-                    console.error(
-                      `这通常是由于 proto 文件里定义的 service 与 rpc 方法并没有对应的源码实现。你也可以检查对应于 proto 文件里定义的 service 或者 rpc 方法的地方，有没有拼写错误。`,
-                    );
-                  }
-
-                  reject(err);
-                } else {
-                  console.log(`success for calling ${method}:`, res);
-                  resolve(res);
-                }
-              });
-            });
-          };
+          this.promisifyMethod(parent, key, method, original);
         }
       }
     });
+  }
+
+  private promisifyMethod(parent: any, key: string, method: string, original: any) {
+    parent[key][method] = (arg: any) => {
+      console.log('calling ', method, ' ...');
+      return new Promise((resolve, reject) => {
+        this.callOriginal(original, parent, key, arg, method, reject, resolve);
+      });
+    };
+  }
+
+  private callOriginal(
+    original: any,
+    parent: any,
+    key: string,
+    arg: any,
+    method: string,
+    reject: (err: any) => void,
+    resolve: (res: any) => void,
+  ) {
+    original.call(parent[key], arg, this.promiseCallback(method, reject, resolve));
+  }
+
+  private promiseCallback(method: string, reject: (err: any) => void, resolve: (res: any) => void) {
+    return (err: any, res: any) => {
+      if (err) {
+        this.hint(method, err);
+
+        reject(err);
+      } else {
+        console.log(`success for calling ${method}:`, res);
+        resolve(res);
+      }
+    };
+  }
+
+  private hint(method: string, err: any) {
+    console.error(`error for calling ${method}: `, err);
+
+    if (err.message.startsWith('RPC method not implemented')) {
+      console.error(
+        `这通常是由于 proto 文件里定义的 service 与 rpc 方法并没有对应的源码实现。你也可以检查对应于 proto 文件里定义的 service 或者 rpc 方法的地方，有没有拼写错误。`,
+      );
+    }
   }
 
   /**
