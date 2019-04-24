@@ -2,6 +2,7 @@ import * as grpc from 'grpc';
 import getPackageDefinition from './getPackageDefinition';
 import deprecated from './helpers/deprecated';
 import { traverseTerminalNodes } from './helpers/terminal-node';
+import RpcErrorHinter from './helpers/rpc-error-hinter';
 
 /**
  * @deprecated, will be deleted in the future
@@ -101,7 +102,7 @@ export default class Client {
   private promiseCallback(method: string, reject: (err: any) => void, resolve: (res: any) => void) {
     return (err: any, res: any) => {
       if (err) {
-        this.hint(method, err);
+        RpcErrorHinter.hint(method, err);
 
         reject(err);
       } else {
@@ -109,16 +110,6 @@ export default class Client {
         resolve(res);
       }
     };
-  }
-
-  private hint(method: string, err: any) {
-    console.error(`error for calling ${method}: `, err);
-
-    if (err.message.startsWith('RPC method not implemented')) {
-      console.error(
-        `这通常是由于 proto 文件里定义的 service 与 rpc 方法并没有对应的源码实现。你也可以检查对应于 proto 文件里定义的 service 或者 rpc 方法的地方，有没有拼写错误。`,
-      );
-    }
   }
 
   /**
