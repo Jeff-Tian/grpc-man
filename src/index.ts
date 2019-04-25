@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 import * as readline from 'readline';
 import asyncCall, { asyncCallResultHandler } from './AsyncCall';
 import Client from './Client';
