@@ -80,7 +80,7 @@ export default class Client {
 
   private promisifyMethod(parent: any, key: string, method: string, original: any) {
     parent[key][method] = (arg: any) => {
-      console.log('calling ', method, ' ...');
+      console.log('calling ', this.endpoint, key, method, ' with ', arg, ' ...');
       return new Promise((resolve, reject) => {
         this.callOriginal(original, parent, key, arg, method, reject, resolve);
       });
