@@ -62,15 +62,24 @@ export default class Client {
 
   private promisifyAllGrpcMethods() {
     traverseTerminalNodes(this.grpc, (ServiceClient, key, parent) => {
+      console.log('key , parent = ', key, parent);
       parent[key] = new ServiceClient(this.endpoint, grpc.credentials.createInsecure());
 
       for (const method in parent[key]) {
+        console.log('m = ', method, parent[key][method] && parent[key][method].toString().substr(0, 30));
         if (
           typeof parent[key][method] === 'function' &&
-          (parent[key][method].toString().startsWith('function (path, serialize, deserialize,') &&
-            method !== 'makeUnaryRequest')
+          (parent[key][method].toString().startsWith('function () {\n') &&
+            method !== 'makeUnaryRequest' &&
+            method !== 'makeClientStreamRequest' &&
+            method !== 'makeServerStreamRequest' &&
+            method !== 'makeBidiStreamRequest') &&
+          method !== 'close' &&
+          method !== 'getChannel' &&
+          method !== 'waitForReady'
         ) {
           const original = parent[key][method];
+          console.log('origin = ', key, method, original);
 
           this.promisifyMethod(parent, key, method, original);
         }
