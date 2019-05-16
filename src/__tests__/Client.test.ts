@@ -1,5 +1,6 @@
 import Client from '../Client';
 import asyncCall from '../AsyncCall';
+import { escapeRegExp } from 'tslint/lib/utils';
 
 require('./helper/mock-server');
 
@@ -43,5 +44,12 @@ test('Client version 1.2.0, embed the async Call', async () => {
   expect(client3.grpc.helloworld.test.Greeter.sayHello).toBeDefined();
   expect(await client3.grpc.helloworld.test.Greeter.sayHello({ name: 'fff' })).toEqual({
     message: 'Hello fff',
+  });
+  expect(
+    await client3.grpc.helloworld.test.Greeter.echoTime({
+      timestamp: { seconds: 1234, nanos: 5678 },
+    }),
+  ).toEqual({
+    timestamp: { seconds: '1234', nanos: 5678 },
   });
 });

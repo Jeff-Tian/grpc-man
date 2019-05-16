@@ -22,9 +22,13 @@ function sayHello(call: any, callback: any) {
   callback(null, { message: 'Hello ' + call.request.name });
 }
 
+function echoTime(call: any, callback: any) {
+  callback(null, { timestamp: call.request.timestamp });
+}
+
 function main() {
   const server = new grpc.Server();
-  server.addService(helloProto.Greeter.service, { sayHello: sayHello });
+  server.addService(helloProto.Greeter.service, { sayHello: sayHello, echoTime: echoTime });
   server.addService(helloProto2.Greeter.service, { sayHello: sayHello });
   server.bind('0.0.0.0:8899', grpc.ServerCredentials.createInsecure());
 

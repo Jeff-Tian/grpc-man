@@ -9,7 +9,6 @@ export function traverseTerminalNodes(
 
   Object.keys(obj).forEach(value => {
     if (typeof obj[value] !== 'object') {
-      console.log('type = ', typeof obj[value], obj[value]);
       traverseAction(obj[value], value, obj);
     } else {
       traverseTerminalNodes(obj[value], traverseAction, maxDepth - 1);
