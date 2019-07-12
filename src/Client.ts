@@ -67,14 +67,16 @@ export default class Client {
       for (const method in parent[key]) {
         if (
           typeof parent[key][method] === 'function' &&
-          (parent[key][method].toString().startsWith('function () {\n') &&
-            method !== 'makeUnaryRequest' &&
-            method !== 'makeClientStreamRequest' &&
-            method !== 'makeServerStreamRequest' &&
-            method !== 'makeBidiStreamRequest') &&
-          method !== 'close' &&
-          method !== 'getChannel' &&
-          method !== 'waitForReady'
+          [
+            'makeUnaryRequest',
+            'makeClientStreamRequest',
+            'makeServerStreamRequest',
+            'makeBidiStreamRequest',
+            'close',
+            'getChannel',
+            'waitForReady',
+            'resolveCallInterceptors',
+          ].indexOf(method) < 0
         ) {
           const original = parent[key][method];
 
@@ -102,6 +104,7 @@ export default class Client {
     reject: (err: any) => void,
     resolve: (res: any) => void,
   ) {
+    console.log('calling...');
     original.call(parent[key], arg, this.promiseCallback(method, reject, resolve));
   }
 
