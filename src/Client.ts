@@ -95,6 +95,7 @@ export default class Client {
     };
   }
 
+  // tslint:disable-next-line: parameters-max-number
   private callOriginal(
     original: any,
     parent: any,
