@@ -54,4 +54,17 @@ test('Client version 1.2.0, embed the async Call', async () => {
   ).toEqual({
     timestamp: { seconds: '1557992462', nanos: 5678 },
   });
+
+  try {
+    client3.grpc.helloworld.test.Greeter.timeout(
+      {
+        name: 'timeout',
+      },
+      {
+        deadline: new Date().getTime() + 500,
+      },
+    );
+  } catch (ex) {
+    expect(ex).toMatch(/Deadline Exceeded/);
+  }
 });

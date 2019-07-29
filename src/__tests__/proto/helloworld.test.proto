@@ -17,6 +17,9 @@ service Greeter {
 
     rpc EchoTime(EchoRequest) returns (EchoResponse) {
     }
+
+    rpc Timeout(HelloRequest) returns (HelloReply) {
+    }
 }
 
 // The request message containing the user's name.

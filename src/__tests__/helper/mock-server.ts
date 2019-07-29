@@ -26,9 +26,15 @@ function echoTime(call: any, callback: any) {
   callback(null, { timestamp: call.request.timestamp });
 }
 
+function timeOut(call: any, callback: any) {
+  setTimeout(() => {
+    callback(null, { message: 'Hello ' + call.request.name });
+  }, 3000);
+}
+
 function main() {
   const server = new grpc.Server();
-  server.addService(helloProto.Greeter.service, { sayHello: sayHello, echoTime: echoTime });
+  server.addService(helloProto.Greeter.service, { sayHello: sayHello, echoTime: echoTime, timeout: timeOut });
   server.addService(helloProto2.Greeter.service, { sayHello: sayHello });
   server.bind('0.0.0.0:8899', grpc.ServerCredentials.createInsecure());
 

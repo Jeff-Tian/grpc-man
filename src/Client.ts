@@ -87,10 +87,10 @@ export default class Client {
   }
 
   private promisifyMethod(parent: any, key: string, method: string, original: any) {
-    parent[key][method] = (arg: any) => {
-      console.log('calling ', this.endpoint, key, method, ' with ', arg, ' ...');
+    parent[key][method] = (arg: any, metaData: any) => {
+      console.log('calling ', this.endpoint, key, method, ' with ', arg, ' ...', 'meta = ', metaData);
       return new Promise((resolve, reject) => {
-        this.callOriginal(original, parent, key, arg, method, reject, resolve);
+        this.callOriginal(original, parent, key, arg, method, reject, resolve, metaData);
       });
     };
   }
@@ -103,9 +103,9 @@ export default class Client {
     method: string,
     reject: (err: any) => void,
     resolve: (res: any) => void,
+    metaData = {},
   ) {
-    console.log('calling...');
-    original.call(parent[key], arg, this.promiseCallback(method, reject, resolve));
+    original.call(parent[key], arg, metaData, this.promiseCallback(method, reject, resolve));
   }
 
   private promiseCallback(method: string, reject: (err: any) => void, resolve: (res: any) => void) {
@@ -115,7 +115,6 @@ export default class Client {
 
         reject(err);
       } else {
-        console.log(`success for calling ${method}:`, res);
         resolve(res);
       }
     };
