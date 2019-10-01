@@ -6,6 +6,7 @@
 
 [![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+[![Build Status](https://travis-ci.com/Jeff-Tian/grpc-man.svg?branch=master)](https://travis-ci.com/Jeff-Tian/grpc-man)
 [![NPM version](https://badge.fury.io/js/grpc-man.png)](http://badge.fury.io/js/grpc-man)
 [![npm download][download-image]][download-url]
 [![Dependencies Status](https://david-dm.org/Jeff-Tian/grpc-man.png)](https://david-dm.org/jeff-tian/grpc-man)
