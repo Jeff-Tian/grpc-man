@@ -90,6 +90,3 @@ npm start <endpoint> <protoFilePath>
 npm start localhost:8080 /path/to/proto_file
 ```
 
-### 本包的 Guide:
-
-https://itnext.io/step-by-step-building-and-publishing-an-npm-typescript-package-44fe7164964c
