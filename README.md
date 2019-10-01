@@ -10,6 +10,7 @@
 [![NPM version](https://badge.fury.io/js/grpc-man.png)](http://badge.fury.io/js/grpc-man)
 [![npm download][download-image]][download-url]
 [![Dependencies Status](https://david-dm.org/Jeff-Tian/grpc-man.png)](https://david-dm.org/jeff-tian/grpc-man)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Git commit with emojis!](https://img.shields.io/badge/gitmoji-git%20commit%20with%20emojis!-brightgreen.svg)](https://gitmoji.js.org)
 
 [download-image]: https://img.shields.io/npm/dm/grpc-man.svg?style=flat-square
