@@ -29,7 +29,7 @@ function echoTime(call: any, callback: any) {
 function timeOut(call: any, callback: any) {
   setTimeout(() => {
     callback(null, { message: 'Hello ' + call.request.name });
-  }, 3000);
+  }, 1000);
 }
 
 function main() {

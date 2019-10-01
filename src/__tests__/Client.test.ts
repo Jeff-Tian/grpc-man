@@ -61,7 +61,7 @@ test('Client version 1.2.0, embed the async Call', async () => {
         name: 'timeout',
       },
       {
-        deadline: new Date().getTime() + 500,
+        deadline: new Date().getTime() + 100,
       },
     );
   } catch (ex) {
