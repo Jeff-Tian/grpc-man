@@ -89,4 +89,3 @@ npm start <endpoint> <protoFilePath>
 # for example:
 npm start localhost:8080 /path/to/proto_file
 ```
-
