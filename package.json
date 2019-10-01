@@ -15,6 +15,7 @@
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
     "semantic-release": "semantic-release",
+    "postinstall": "echo \"Thanks for using grpc-man!\"",
     "open": "/mnt/c/Windows/explorer.exe \"https://github.com/jeff-tian/grpc-man.git\""
   },
   "repository": {
