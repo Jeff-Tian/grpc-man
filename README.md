@@ -13,6 +13,7 @@
 [![Dependencies Status](https://david-dm.org/Jeff-Tian/grpc-man.png)](https://david-dm.org/jeff-tian/grpc-man)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Git commit with emojis!](https://img.shields.io/badge/gitmoji-git%20commit%20with%20emojis!-brightgreen.svg)](https://gitmoji.js.org)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FJeff-Tian%2Fgrpc-man.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FJeff-Tian%2Fgrpc-man?ref=badge_shield)
 
 [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=Jeff-Tian_grpc-man)](https://sonarcloud.io/dashboard?id=Jeff-Tian_grpc-man)
 
@@ -92,3 +93,7 @@ npm start <endpoint> <protoFilePath>
 # for example:
 npm start localhost:8080 /path/to/proto_file
 ```
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FJeff-Tian%2Fgrpc-man.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FJeff-Tian%2Fgrpc-man?ref=badge_large)
