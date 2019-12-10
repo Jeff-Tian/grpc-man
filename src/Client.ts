@@ -3,6 +3,7 @@ import getPackageDefinition from './getPackageDefinition';
 import deprecated from './helpers/deprecated';
 import RpcErrorHinter from './helpers/rpc-error-hinter';
 import { traverseTerminalNodes } from './helpers/terminal-node';
+import { resolve } from 'path';
 
 /**
  * @deprecated, will be deleted in the future
@@ -41,6 +42,7 @@ export default class Client {
     // tslint:disable-next-line
     return createClientService(endpoint, protoPath, packageName, service);
   }
+
   public readonly grpc: any;
 
   private readonly endpoint: string;
@@ -50,7 +52,7 @@ export default class Client {
    */
   private readonly packDef: any;
 
-  constructor(endpoint: string, protoPath: string) {
+  constructor(endpoint: string, protoPath: string = resolve(__dirname, '../node_modules/grpc-health/src/health/health.proto')) {
     this.endpoint = endpoint;
 
     // tslint:disable-next-line
@@ -125,7 +127,7 @@ export default class Client {
    * @deprecated, use grpc's instead
    * @param service
    */
-  @deprecated("use grpc's method instead")
+  @deprecated('use grpc\'s method instead')
   public getService(service: string) {
     const parts = service.split('.');
     // tslint:disable-next-line

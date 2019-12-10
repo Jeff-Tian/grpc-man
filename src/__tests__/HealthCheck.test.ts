@@ -3,7 +3,8 @@ import { spawn, spawnSync } from 'child_process';
 import { sleep } from '@jeff-tian/sleep';
 
 jest.setTimeout(5000);
-test('Health Check', async () => {
+
+const testWithHealthCheckGrpcRunning = (asyncTesting: () => Promise<void>) => async () => {
   const childProcess = spawn('node', ['node_modules/grpc-health/dist/main.js'], {
     detached: true, // Trick: detached set to true to allow later kill -pid works
   });
@@ -22,17 +23,7 @@ test('Health Check', async () => {
   console.log('output = ', output.join('\n'));
   console.log('started testing with ', childProcess.pid);
 
-  expect(Client).toBeDefined();
-
-  const client = new Client(
-    '127.0.0.1:8080',
-    __dirname + '../../../node_modules/grpc-health/src/health/health.proto',
-  );
-
-  expect(await client.grpc.grpc.health.v1.Health.check({ service: 'whatever' })).toStrictEqual({
-    status: 'SERVING',
-  });
-
+  await asyncTesting();
 
   // Trick: -pid is to kill all sub processes that created by nest
   // to prevent the error: Some handles are still open to prevent
@@ -44,4 +35,35 @@ test('Health Check', async () => {
   } catch (ex) {
     console.error(ex);
   }
+};
+
+describe('Health Check with proto path', () => {
+  test('Health Check', testWithHealthCheckGrpcRunning(async () => {
+
+    expect(Client).toBeDefined();
+
+    const client = new Client(
+      '127.0.0.1:8080',
+      __dirname + '../../../node_modules/grpc-health/src/health/health.proto',
+    );
+
+    expect(await client.grpc.grpc.health.v1.Health.check({ service: 'whatever' })).toStrictEqual({
+      status: 'SERVING',
+    });
+  }));
+});
+
+describe('Health Check without proto path', () => {
+  test('Health Check with only host and port specified', testWithHealthCheckGrpcRunning(async () => {
+      expect(Client).toBeDefined();
+
+      const client = new Client(
+        '127.0.0.1:8080',
+      );
+
+      expect(await client.grpc.grpc.health.v1.Health.check({ service: 'omitProtoPath' })).toStrictEqual({
+        status: 'SERVING',
+      });
+    }),
+  );
 });
