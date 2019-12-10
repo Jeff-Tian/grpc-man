@@ -1,6 +1,6 @@
 {
   "name": "grpc-man",
-  "version": "1.4.3",
+  "version": "1.6.1",
   "description": "A client to call gRPC server methods on the fly. 一个 gRPC 客户端，可以灵活地调用 gRPC 服务。",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

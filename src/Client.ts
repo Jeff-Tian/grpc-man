@@ -1,9 +1,9 @@
-import * as grpc from 'grpc';
+import grpc from 'grpc';
+import path from 'path';
 import getPackageDefinition from './getPackageDefinition';
 import deprecated from './helpers/deprecated';
 import RpcErrorHinter from './helpers/rpc-error-hinter';
 import { traverseTerminalNodes } from './helpers/terminal-node';
-import { resolve } from 'path';
 
 /**
  * @deprecated, will be deleted in the future
@@ -52,7 +52,7 @@ export default class Client {
    */
   private readonly packDef: any;
 
-  constructor(endpoint: string, protoPath: string = resolve(__dirname, '../node_modules/grpc-health/src/health/health.proto')) {
+  constructor(endpoint: string, protoPath: string = path.resolve(__dirname, '../node_modules/grpc-health/src/health/health.proto')) {
     this.endpoint = endpoint;
 
     // tslint:disable-next-line
@@ -90,7 +90,6 @@ export default class Client {
 
   private promisifyMethod(parent: any, key: string, method: string, original: any) {
     parent[key][method] = (arg: any, metaData: any) => {
-      console.log('calling ', this.endpoint, key, method, ' with ', arg, ' ...', 'meta = ', metaData);
       return new Promise((resolve, reject) => {
         this.callOriginal(original, parent, key, arg, method, reject, resolve, metaData);
       });
