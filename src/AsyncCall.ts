@@ -1,4 +1,4 @@
-export default (asyncWithClassicalCallback: (callback: (err: any, result: any) => void) => void, context: any) => {
+export default (asyncWithClassicalCallback: (...argsWithCallbackInTheLast: any) => void, context: any) => {
   return async (...args: any): Promise<any> => {
     return new Promise((resolve, reject) => {
       asyncWithClassicalCallback.call(context, ...args, (err: any, result: any) => {

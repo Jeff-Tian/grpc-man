@@ -36,11 +36,11 @@
     "jest": "^23.6.0",
     "prettier": "^1.14.3",
     "ts-jest": "^23.10.4",
-    "ts-node": "^7.0.1",
+    "ts-node": "^8.5.4",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
     "tslint-sonarts": "^1.8.0",
-    "typescript": "^3.1.5",
+    "typescript": "^3.7.2",
     "semantic-release": "^15.13.24"
   },
   "engines": {
@@ -48,6 +48,8 @@
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.3.0",
-    "grpc": "1.23.3"
+    "@jeff-tian/sleep": "^1.0.0",
+    "grpc": "1.23.3",
+    "grpc-health": "^1.0.2"
   }
 }
