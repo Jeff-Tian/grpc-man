@@ -1,11 +1,11 @@
+import fs from 'fs';
 import * as grpc from 'grpc';
 import path from 'path';
+import R from 'ramda';
 import getPackageDefinition from './getPackageDefinition';
 import deprecated from './helpers/deprecated';
 import RpcErrorHinter from './helpers/rpc-error-hinter';
 import { traverseServiceClients } from './helpers/terminal-node';
-import fs from 'fs';
-import R from 'ramda';
 
 /**
  * @deprecated, will be deleted in the future
