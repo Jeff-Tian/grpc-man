@@ -4,6 +4,8 @@ import getPackageDefinition from './getPackageDefinition';
 import deprecated from './helpers/deprecated';
 import RpcErrorHinter from './helpers/rpc-error-hinter';
 import { traverseTerminalNodes } from './helpers/terminal-node';
+import fs from 'fs';
+import R from 'ramda';
 
 /**
  * @deprecated, will be deleted in the future
@@ -52,7 +54,19 @@ export default class Client {
    */
   private readonly packDef: any;
 
-  constructor(endpoint: string, protoPath: string = path.resolve(__dirname, '../node_modules/grpc-health/src/health/health.proto')) {
+  constructor(
+    endpoint: string,
+    protoPath: string | undefined = R.head(
+      R.takeWhile(fs.existsSync, [
+        path.resolve(__dirname, '../node_modules/grpc-health/src/health/health.proto'),
+        path.resolve(__dirname, '../../grpc-health/src/health/health.proto'),
+      ]),
+    ),
+  ) {
+    if (!protoPath) {
+      throw new Error('Parameter protoPath must be provided!');
+    }
+
     this.endpoint = endpoint;
 
     // tslint:disable-next-line
@@ -126,7 +140,7 @@ export default class Client {
    * @deprecated, use grpc's instead
    * @param service
    */
-  @deprecated('use grpc\'s method instead')
+  @deprecated("use grpc's method instead")
   public getService(service: string) {
     const parts = service.split('.');
     // tslint:disable-next-line
