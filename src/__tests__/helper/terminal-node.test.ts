@@ -1,20 +1,21 @@
-import getTerminalNodes, { traverseTerminalNodes } from '../../helpers/terminal-node';
+import getTerminalNodes, { traverseServiceClients } from '../../helpers/terminal-node';
 
 describe('terminal-node', () => {
-  it('get all terminal nodes', () => {
+  it('get all service client nodes', () => {
     const testObj = {
       a: {
         b: {
-          c: 'c',
+          c: function ServiceClient() {
+          },
         },
       },
       b: 'b',
     };
 
     let terminalNodes = getTerminalNodes(testObj);
-    expect(terminalNodes).toStrictEqual(['c', 'b']);
+    expect(terminalNodes).toStrictEqual([testObj.a.b.c]);
 
-    traverseTerminalNodes(testObj, (v, key, parent) => {
+    traverseServiceClients(testObj, (v, key, parent) => {
       parent[key] = 'changed';
     });
     expect(testObj).toStrictEqual({
@@ -23,7 +24,7 @@ describe('terminal-node', () => {
           c: 'changed',
         },
       },
-      b: 'changed',
+      b: 'b',
     });
   });
 });

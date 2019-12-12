@@ -1,9 +1,9 @@
-import grpc from 'grpc';
+import * as grpc from 'grpc';
 import path from 'path';
 import getPackageDefinition from './getPackageDefinition';
 import deprecated from './helpers/deprecated';
 import RpcErrorHinter from './helpers/rpc-error-hinter';
-import { traverseTerminalNodes } from './helpers/terminal-node';
+import { traverseServiceClients } from './helpers/terminal-node';
 import fs from 'fs';
 import R from 'ramda';
 
@@ -16,7 +16,6 @@ import R from 'ramda';
  */
 function createClientService(endpoint: string, protoPath: string, packageName: string, service: string): any {
   const packageDefinition = getPackageDefinition(protoPath);
-  console.log(JSON.stringify(packageDefinition));
 
   const parts = packageName.split('.');
 
@@ -67,6 +66,10 @@ export default class Client {
       throw new Error('Parameter protoPath must be provided!');
     }
 
+    if (!fs.existsSync(protoPath)) {
+      throw new Error(`File ${protoPath} does not exists!`);
+    }
+
     this.endpoint = endpoint;
 
     // tslint:disable-next-line
@@ -77,7 +80,8 @@ export default class Client {
   }
 
   private promisifyAllGrpcMethods() {
-    traverseTerminalNodes(this.grpc, (ServiceClient, key, parent) => {
+    traverseServiceClients(this.grpc, (ServiceClient, key, parent) => {
+      console.log('ServiceClient = ', ServiceClient, JSON.stringify(ServiceClient));
       parent[key] = new ServiceClient(this.endpoint, grpc.credentials.createInsecure());
 
       for (const method in parent[key]) {
@@ -140,7 +144,7 @@ export default class Client {
    * @deprecated, use grpc's instead
    * @param service
    */
-  @deprecated("use grpc's method instead")
+  @deprecated('use grpc\'s method instead')
   public getService(service: string) {
     const parts = service.split('.');
     // tslint:disable-next-line

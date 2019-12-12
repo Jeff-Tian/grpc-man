@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
-import * as readline from 'readline';
-import asyncCall, { asyncCallResultHandler } from './AsyncCall';
+import readline from 'readline';
+import { asyncCallResultHandler } from './AsyncCall';
 import Client from './Client';
 import { Greeter } from './Greeter';
 import Composer from './helpers/composer';
@@ -36,3 +36,5 @@ if (require.main === module) {
     console.log(res);
   });
 }
+
+export * from './Client';
