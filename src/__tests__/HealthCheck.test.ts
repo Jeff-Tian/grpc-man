@@ -21,7 +21,7 @@ const testWithHealthCheckGrpcRunning = (asyncTesting: () => Promise<void>) => as
   while (!output || output!.filter(o => o && o.trim().length > 0).length === 0) {
     console.log('waiting to start testing... ', count++);
     await sleep(1);
-    output = spawnSync('lsof', [`-i:${httpPort}`], { encoding: 'utf8' }).output;
+    output = spawnSync('lsof', [`-i:${8080}`], { encoding: 'utf8' }).output;
   }
 
   console.log('output = ', output.join('\n'));
