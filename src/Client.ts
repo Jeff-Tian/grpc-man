@@ -81,7 +81,6 @@ export default class Client {
 
   private promisifyAllGrpcMethods() {
     traverseServiceClients(this.grpc, (ServiceClient, key, parent) => {
-      console.log('ServiceClient = ', ServiceClient, JSON.stringify(ServiceClient));
       parent[key] = new ServiceClient(this.endpoint, grpc.credentials.createInsecure());
 
       for (const method in parent[key]) {
@@ -144,7 +143,7 @@ export default class Client {
    * @deprecated, use grpc's instead
    * @param service
    */
-  @deprecated('use grpc\'s method instead')
+  @deprecated("use grpc's method instead")
   public getService(service: string) {
     const parts = service.split('.');
     // tslint:disable-next-line

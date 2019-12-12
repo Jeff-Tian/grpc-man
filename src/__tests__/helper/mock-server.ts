@@ -36,7 +36,7 @@ function main() {
   const server = new grpc.Server();
   server.addService(helloProto.Greeter.service, { sayHello: sayHello, echoTime: echoTime, timeout: timeOut });
   server.addService(helloProto2.Greeter.service, { sayHello: sayHello });
-  server.bind('0.0.0.0:8899', grpc.ServerCredentials.createInsecure());
+  server.bind('127.0.0.1:8899', grpc.ServerCredentials.createInsecure());
 
   server.start();
 }
