@@ -3,7 +3,7 @@ import { spawn, spawnSync } from 'child_process';
 import { sleep } from '@jeff-tian/sleep';
 import { join } from 'path';
 
-jest.setTimeout(5000);
+jest.setTimeout(10000);
 const httpPort = 3003;
 
 const testWithHealthCheckGrpcRunning = (asyncTesting: () => Promise<void>) => async () => {
