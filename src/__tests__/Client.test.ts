@@ -15,7 +15,7 @@ afterAll(() => {
 });
 
 process.on('unhandledRejection', (reason, promise) => {
-  process.stdout.write(`createClientService ${process.pid}: ${reason.toString()}`);
+  process.stdout.write(`createClientService ${process.pid}: ${reason.toString()}, ${JSON.stringify(reason)}`);
 });
 
 test('Client version 1.0.0 (to be deleted in the future)', async () => {
