@@ -32,14 +32,18 @@ function timeOut(call: any, callback: any) {
   }, 3000);
 }
 
+let server;
+
 function main() {
-  const server = new grpc.Server();
+  server = new grpc.Server();
   server.addService(helloProto.Greeter.service, { sayHello: sayHello, echoTime: echoTime, timeout: timeOut });
   server.addService(helloProto2.Greeter.service, { sayHello: sayHello });
   server.bind('127.0.0.1:8899', grpc.ServerCredentials.createInsecure());
 
   server.start();
-  console.log('started at 8899')
+  console.log('started at 8899');
 }
 
 main();
+
+module.exports = server;
