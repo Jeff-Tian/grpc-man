@@ -3,7 +3,7 @@ import asyncCall from '../AsyncCall';
 
 require('./helper/mock-server');
 
-test('Client version 1.0.0 (to be deleted in the future)', async () => {
+test.skip('Client version 1.0.0 (to be deleted in the future)', async () => {
   expect(Client).toBeDefined();
 
   const client = Client.connect(
@@ -20,7 +20,7 @@ test('Client version 1.0.0 (to be deleted in the future)', async () => {
   expect(res).toEqual({ message: 'Hello your name' });
 });
 
-test('Client version 1.1.0 (to be deleted in the future)', async () => {
+test.skip('Client version 1.1.0 (to be deleted in the future)', async () => {
   const client2 = new Client('127.0.0.1:8899', __dirname + '/./proto/helloworld.test.proto');
   let service = client2.getService('helloworld.test.Greeter');
   expect(service).toBeDefined();
@@ -32,7 +32,7 @@ test('Client version 1.1.0 (to be deleted in the future)', async () => {
   expect(await asyncCall(service.sayHello, service)({ name: 'name' })).toEqual({ message: 'Hello name' });
 });
 
-test('Client version 1.2.0, embed the async Call', async () => {
+test.skip('Client version 1.2.0, embed the async Call', async () => {
   const client3 = new Client('127.0.0.1:8899', __dirname + '/./proto/helloworld.test.proto');
   expect(client3).toBeDefined();
   expect(client3.grpc.helloworld).toBeDefined();

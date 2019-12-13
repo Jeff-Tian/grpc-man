@@ -1,6 +1,6 @@
 import Composer from '../../helpers/composer';
 
-describe('composer', () => {
+describe.skip('composer', () => {
   it('compose method', () => {
     const obj = {
       parent: {
