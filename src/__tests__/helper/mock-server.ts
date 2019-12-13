@@ -41,7 +41,7 @@ function main() {
   server.bind('127.0.0.1:8899', grpc.ServerCredentials.createInsecure());
 
   server.start();
-  console.log('started at 8899');
+  console.log('started at 8899, ', process.pid);
 }
 
 main();
