@@ -1,6 +1,6 @@
 export default class RpcErrorHinter {
-  public static hint(method: string, err: any) {
-    console.error(`error for calling ${method}: `, err);
+  public static hint(method: string, err: any, endpoint: string) {
+    console.error(`error for calling ${method} at ${endpoint}: `, err);
 
     if (err.details && err.details.startsWith('RPC method not implemented')) {
       console.error(

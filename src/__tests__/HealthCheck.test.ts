@@ -26,6 +26,7 @@ const testWithHealthCheckGrpcRunning = (asyncTesting: () => Promise<void>) => as
 
   console.log('output = ', output.join('\n'));
   console.log('started testing with ', childProcess.pid);
+  await sleep(2);
 
   await asyncTesting();
 
@@ -41,7 +42,7 @@ const testWithHealthCheckGrpcRunning = (asyncTesting: () => Promise<void>) => as
   }
 };
 
-describe.skip('Health Check with proto path', () => {
+describe('Health Check with proto path', () => {
   test(
     'Health Check',
     testWithHealthCheckGrpcRunning(async () => {
@@ -59,7 +60,7 @@ describe.skip('Health Check with proto path', () => {
   );
 });
 
-describe.skip('Health Check without proto path', () => {
+describe('Health Check without proto path', () => {
   test(
     'Health Check with only host and port specified',
     testWithHealthCheckGrpcRunning(async () => {

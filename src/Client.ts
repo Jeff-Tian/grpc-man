@@ -130,7 +130,7 @@ export default class Client {
   private promiseCallback(method: string, reject: (err: any) => void, resolve: (res: any) => void) {
     return (err: any, res: any) => {
       if (err) {
-        RpcErrorHinter.hint(method, err);
+        RpcErrorHinter.hint(method, err, this.endpoint);
 
         reject(err);
       } else {

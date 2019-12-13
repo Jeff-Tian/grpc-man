@@ -36,8 +36,6 @@ test('Client version 1.0.0 (to be deleted in the future)', async () => {
   const res = await asyncCall(client.sayHello, client)({ name: 'your name' });
   expect(res).toBeDefined();
   expect(res).toEqual({ message: 'Hello your name' });
-
-  console.log('test 1 done.');
 });
 
 test('Client version 1.1.0 (to be deleted in the future)', async () => {

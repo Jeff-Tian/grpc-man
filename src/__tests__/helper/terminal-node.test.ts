@@ -1,12 +1,11 @@
 import getTerminalNodes, { traverseServiceClients } from '../../helpers/terminal-node';
 
-describe.skip('terminal-node', () => {
+describe('terminal-node', () => {
   it('get all service client nodes', () => {
     const testObj = {
       a: {
         b: {
-          c: function ServiceClient() {
-          },
+          c: function ServiceClient() {},
         },
       },
       b: 'b',
