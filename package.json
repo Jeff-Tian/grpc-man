@@ -34,7 +34,7 @@
     "@types/node": "^10.12.1",
     "@types/protobufjs": "^6.0.0",
     "@types/ramda": "^0.26.38",
-    "jest": "^23.6.0",
+    "jest": "23.6.0",
     "prettier": "^1.14.3",
     "semantic-release": "^15.13.24",
     "ts-jest": "^23.10.4",
