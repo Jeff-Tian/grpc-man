@@ -5,12 +5,12 @@ import { asyncCallResultHandler } from './AsyncCall';
 import Client from './Client';
 import { Greeter } from './Greeter';
 import Composer from './helpers/composer';
+import GrpcHealthCheckHelper from 'grpc-health/dist/health/health.helper';
 
-const [exe, exeFilePath, endpoint, protoFilePath] = process.argv;
+const [exe, exeFilePath, endpoint, protoFilePath = GrpcHealthCheckHelper.getHealthCheckProtoPath()] = process.argv;
 
 Greeter(exe, exeFilePath, endpoint, protoFilePath);
 
-// tslint:disable-next-line
 export const client = new Client(endpoint, protoFilePath);
 
 if (client === null) {
@@ -37,4 +37,4 @@ if (require.main === module) {
   });
 }
 
-export * from './Client';
+export default Client;
