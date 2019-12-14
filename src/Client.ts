@@ -56,10 +56,13 @@ export default class Client {
   constructor(
     endpoint: string,
     protoPath: string | undefined = R.head(
-      R.takeWhile(fs.existsSync, [
-        path.resolve(__dirname, '../node_modules/grpc-health/src/health/health.proto'),
-        path.resolve(__dirname, '../../grpc-health/src/health/health.proto'),
-      ]),
+      R.filter(
+        fs.existsSync,
+        R.map(p => path.resolve(__dirname, p), [
+          '../node_modules/grpc-health/src/health/health.proto',
+          '../../grpc-health/src/health/health.proto',
+        ]),
+      ),
     ),
   ) {
     if (!protoPath) {
