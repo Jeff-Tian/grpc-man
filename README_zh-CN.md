@@ -1,10 +1,10 @@
 # grpc-man
 
-[中文简体](./README_zh-CN.md)
+[English](./README.md)
 
-> A client to call gRPC server methods on the fly.
->
-> The name is inspired by `post-man`.
+> A client to call gRPC server methods on the fly. 一个 gRPC 客户端，可以灵活地调用 gRPC 服务。
+
+> 名字灵感来源于 `post-man`。
 
 [![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
@@ -21,23 +21,27 @@
 [download-image]: https://img.shields.io/npm/dm/grpc-man.svg?style=flat-square
 [download-url]: https://npmjs.org/package/grpc-man
 
-# Usage
+# 有什么用？
 
-This package provides a lightweight gRPC client implementation, which can be used to verify your gRPC service is working as expected or not.
+本包提供了一个轻量级的 gRPC 客户端实现，可以用来快速验证你的 gRPC 服务是否正确工作。
 
-I am using it heavily for testing code, and recommend you to use it too.
+当然，它只提供了连接 gRPC 服务的方法，具体运行结果需要自行写代码验证。
 
-# Installation
+作者在实际项目中使用 `Mocha` 测试框架，也非常推荐你使用它。后面会有在 `Mocha` 框架中使用此包的示例代码。
+
+当然，你也可以在别的测试框架中使用本包，比如本项目自身使用了 `jest`（`jest` 很优秀，但实际使用下来，我感觉不如 `Mocha` 快）。
+
+# 安装:
 
 ```bash
-# Globally
+# 如果你想全局运行:
 npm install -g grpc-man
 
-# Only in project and for testing purpose
+# 如果你想在项目的测试代码里使用它:
 npm install --save-dev grpc-man
 ```
 
-# Use in `javascript` project
+# 用在 `javascript` 项目里：
 
 ```javascript
 import GrpcClient from 'grpc-man/lib/Client';
@@ -49,20 +53,20 @@ async function main() {
 }
 ```
 
-# Use in testing
+# 用在测试里:
 
-If your project provides services through gRPC, then you can use `grpc-man` to do the automatic testing against your gRPC services.
+如果你的项目使用 gRPC 为客户提供服务，那么在你的项目的自动化测试中，你可以用它来帮助调用你的 gRPC 服务:
 
-### with mocha
+### mocha 示例
 
-The proto file used for testing is [here](./src/__tests__/proto/helloworld.proto)。
+示例用到的 proto 文件[在这里](./src/__tests__/proto/helloworld.proto)。
 
 ```typescript
 import assert = require('assert');
 import GrpcClient from 'grpc-man/lib/Client';
 
 describe('grpc', () => {
-  it('greets', async () => {
+  it('可以打招呼', async () => {
     const client = new Client('0.0.0.0:8899', __dirname + '/./proto/helloworld.proto');
 
     const res = await client.grpc.helloworld.Greeter.sayHello({ name: 'name' });
@@ -71,9 +75,9 @@ describe('grpc', () => {
 });
 ```
 
-If you are using `jest` testing framework, then you can refer to [the testing code for this package itself](./src/__tests__/Client.test.ts)。
+如果你采用 `jest` 测试框架，那么可以参考[本包的测试代码](./src/__tests__/Client.test.ts)。
 
-# Use in command line
+# 命令行使用
 
 ```bash
 grpc-man <endpoint> <protoFilePath>
@@ -82,7 +86,7 @@ grpc-man <endpoint> <protoFilePath>
 grpc-man localhost:8080 /path/to/proto_file
 ```
 
-# Run it locally
+# 本地运行
 
 ```bash
 npm start <endpoint> <protoFilePath>
