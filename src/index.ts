@@ -26,12 +26,17 @@ if (require.main === module) {
     });
 
     const input: string = await asyncCallResultHandler(rl.question, rl)(
-      'Input method name and parameters, for example: package.Service.get {"arg1": "value1"} >>>: ',
+      `Input method name and parameters, for example: package.Service.get {"arg1": "value1"}
+Enter with empty input will do health check: grpc.health.v1.Health.check {} 
+>>>: `,
     );
     const parts = input.split(' ');
     const args = parts[1] ? JSON.parse(parts[1]) : {};
-    console.log('will call method: ', parts[0], ' with args: ', args);
-    const method = Composer.composeMethod(client.grpc, parts[0]);
+
+    const methodString = parts[0] || 'grpc.health.v1.Health.check';
+
+    console.log('will call method: ', methodString, ' with args: ', args);
+    const method = Composer.composeMethod(client.grpc, methodString);
     const res = await method(args);
     console.log(res);
   });

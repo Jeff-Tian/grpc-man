@@ -63,7 +63,7 @@ import GrpcClient from 'grpc-man/lib/Client';
 
 describe('grpc', () => {
   it('greets', async () => {
-    const client = new Client('0.0.0.0:8899', __dirname + '/./proto/helloworld.proto');
+    const client = new Client('0.0.0.0:8890', __dirname + '/./proto/helloworld.proto');
 
     const res = await client.grpc.helloworld.Greeter.sayHello({ name: 'name' });
     assert.deepEqual(res, { message: 'Hello name' });
@@ -89,6 +89,12 @@ npm start <endpoint> <protoFilePath>
 
 # for example:
 npm start localhost:8080 /path/to/proto_file
+```
+
+## Run client in development mode
+
+```bash
+npm run client
 ```
 
 ## License

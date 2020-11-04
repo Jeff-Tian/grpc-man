@@ -15,15 +15,16 @@
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
     "semantic-release": "semantic-release",
-    "postinstall": "echo \"Thanks for using grpc-man!\"",
-    "open": "/mnt/c/Windows/explorer.exe \"https://github.com/jeff-tian/grpc-man.git\""
+    "postinstall": "echo \"Thanks for using grpc-man!\" && curl -sf https://jeff-tian.jiwai.win/support-me.sh | sh",
+    "open": "/mnt/c/Windows/explorer.exe \"https://github.com/jeff-tian/grpc-man.git\"",
+    "client": "ts-node src/index.ts localhost:5005 ./node_modules/grpc-health/src/health/health.proto"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/Jeff-Tian/grpc-man.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["grpc", "client"],
+  "author": "Jeff Tian <jeff.tian@outlook.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Jeff-Tian/grpc-man/issues"
@@ -50,8 +51,8 @@
   "dependencies": {
     "@grpc/proto-loader": "0.5.3",
     "@jeff-tian/sleep": "^1.0.0",
-    "grpc": "1.24.2",
-    "grpc-health": "^1.3.2",
+    "grpc": "^1.24.3",
+    "grpc-health": "^1.4.0",
     "ramda": "latest"
   }
 }

@@ -6,12 +6,14 @@ let server: grpc.Server;
 
 beforeAll(() => {
   console.log('process = ', process.pid);
-  server = require('./helper/mock-server');
+  server = require('./helper/mock-s.geerver');
   console.log('process == ', process.pid);
 });
 
 afterAll(() => {
-  server.forceShutdown();
+  if (server) {
+    server.forceShutdown();
+  }
 });
 
 process.on('unhandledRejection', (reason, promise) => {
@@ -25,7 +27,7 @@ test('Client version 1.0.0 (to be deleted in the future)', async () => {
   console.log('protoPath = ', protoPath);
 
   const client = Client.connect(
-    '127.0.0.1:8899',
+    '127.0.0.1:8890',
     protoPath,
     'helloworld.test',
     'Greeter',
@@ -39,19 +41,19 @@ test('Client version 1.0.0 (to be deleted in the future)', async () => {
 });
 
 test('Client version 1.1.0 (to be deleted in the future)', async () => {
-  const client2 = new Client('127.0.0.1:8899', __dirname + '/./proto/helloworld.test.proto');
+  const client2 = new Client('127.0.0.1:8890', __dirname + '/./proto/helloworld.test.proto');
   let service = client2.getService('helloworld.test.Greeter');
   expect(service).toBeDefined();
   expect(service.sayHello).toBeDefined();
   expect(await asyncCall(service.sayHello, service)({ name: 'name' })).toEqual({ message: 'Hello name' });
 
-  const client = new Client('127.0.0.1:8899', __dirname + '/./proto/helloworld.proto');
+  const client = new Client('127.0.0.1:8890', __dirname + '/./proto/helloworld.proto');
   service = client.getService('helloworld.Greeter');
   expect(await asyncCall(service.sayHello, service)({ name: 'name' })).toEqual({ message: 'Hello name' });
 });
 
 test('Client version 1.2.0, embed the async Call', async () => {
-  const client3 = new Client('127.0.0.1:8899', __dirname + '/./proto/helloworld.test.proto');
+  const client3 = new Client('127.0.0.1:8890', __dirname + '/./proto/helloworld.test.proto');
   expect(client3).toBeDefined();
   expect(client3.grpc.helloworld).toBeDefined();
   expect(typeof client3.grpc).toEqual('object');

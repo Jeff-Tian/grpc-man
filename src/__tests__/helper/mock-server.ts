@@ -1,5 +1,6 @@
 import * as grpc from 'grpc';
 import * as protoLoader from '@grpc/proto-loader';
+import { Server } from 'grpc';
 
 const PROTO_PATH = __dirname + '/../proto/helloworld.test.proto';
 const PROTO_PATH2 = __dirname + '/../proto/helloworld.proto';
@@ -32,18 +33,26 @@ function timeOut(call: any, callback: any) {
   }, 3000);
 }
 
-let server;
+let serverForExport: Server | undefined;
 
 function main() {
-  server = new grpc.Server();
+  const server = new grpc.Server();
+  serverForExport = server;
   server.addService(helloProto.Greeter.service, { sayHello: sayHello, echoTime: echoTime, timeout: timeOut });
   server.addService(helloProto2.Greeter.service, { sayHello: sayHello });
-  server.bind('127.0.0.1:8899', grpc.ServerCredentials.createInsecure());
 
-  server.start();
-  console.log('started at 8899, ', process.pid);
+  const port = server.bind('127.0.0.1:8890', grpc.ServerCredentials.createInsecure());
+
+  if (port <= 0) {
+    const message = 'failed to start server';
+    console.error(message);
+    throw message;
+  } else {
+    server.start();
+    console.log(`started at ${port}, `, process.pid);
+  }
 }
 
 main();
 
-module.exports = server;
+module.exports = serverForExport;
