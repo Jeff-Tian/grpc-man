@@ -6,7 +6,7 @@ let server: grpc.Server;
 
 beforeAll(() => {
   console.log('process = ', process.pid);
-  server = require('./helper/mock-s.geerver');
+  server = require('./helper/mock-server');
   console.log('process == ', process.pid);
 });
 
