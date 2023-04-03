@@ -4,7 +4,7 @@ on: push
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/setup-node@master
         with:
@@ -19,7 +19,7 @@ jobs:
         run: yarn test
 
   publish:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     needs: test
 
     steps:
