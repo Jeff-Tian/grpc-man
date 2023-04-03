@@ -12,16 +12,6 @@ export default (asyncWithClassicalCallback: (...argsWithCallbackInTheLast: any) 
   };
 };
 
-export function asyncCall(asyncWithDumpCallback: (callback: () => void) => void, context: any): () => void {
-  return async (): Promise<any> => {
-    return new Promise((resolve, reject) => {
-      asyncWithDumpCallback.call(context, () => {
-        resolve();
-      });
-    });
-  };
-}
-
 export function asyncCallResultHandler(
   asyncWithResultCallback: (question: string, callback: (answer: string) => void) => void,
   context: any,

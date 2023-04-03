@@ -1,7 +1,7 @@
-import Client from '../Client';
-import { spawn, spawnSync } from 'child_process';
 import { sleep } from '@jeff-tian/sleep';
+import { spawn, spawnSync } from 'child_process';
 import { join } from 'path';
+import Client from '../Client';
 
 jest.setTimeout(10000);
 const httpPort = 3003;
@@ -60,7 +60,7 @@ describe.skip('Health Check with proto path', () => {
   );
 });
 
-describe.skip('Health Check without proto path', () => {
+describe('Health Check without proto path', () => {
   test(
     'Health Check with only host and port specified',
     testWithHealthCheckGrpcRunning(async () => {

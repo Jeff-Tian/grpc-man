@@ -35,15 +35,15 @@
     "@types/node": "^10.12.1",
     "@types/protobufjs": "^6.0.0",
     "@types/ramda": "^0.26.38",
-    "jest": "29.3.1",
+    "jest": "23.x.x",
     "prettier": "^1.14.3",
-    "semantic-release": "^17.2.3",
-    "ts-jest": "^23.10.4",
+    "semantic-release": "19.0.3",
+    "ts-jest": "23.10.4",
     "ts-node": "^8.5.4",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
     "tslint-sonarts": "^1.8.0",
-    "typescript": "^3.7.2"
+    "typescript": "4.4.4"
   },
   "engines": {
     "node": ">=8.9.0"
