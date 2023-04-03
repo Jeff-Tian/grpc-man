@@ -1,6 +1,6 @@
-import Client from '../Client';
-import asyncCall from '../AsyncCall';
 import * as grpc from 'grpc';
+import asyncCall from '../AsyncCall';
+import Client from '../Client';
 
 let server: grpc.Server;
 
@@ -17,13 +17,13 @@ afterAll(() => {
 });
 
 process.on('unhandledRejection', (reason, promise) => {
-  process.stdout.write(`createClientService ${process.pid}: ${reason.toString()}, ${JSON.stringify(reason)}`);
+  process.stdout.write(`createClientService ${process.pid}: ${reason?.toString()}, ${JSON.stringify(reason)}`);
 });
 
 test('Client version 1.0.0 (to be deleted in the future)', async () => {
   expect(Client).toBeDefined();
 
-  let protoPath = __dirname + '/./proto/helloworld.test.proto';
+  const protoPath = __dirname + '/./proto/helloworld.test.proto';
   console.log('protoPath = ', protoPath);
 
   const client = Client.connect(

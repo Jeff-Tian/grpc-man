@@ -1,6 +1,6 @@
 {
   "name": "grpc-man",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "A client to call gRPC server methods on the fly. 一个 gRPC 客户端，可以灵活地调用 gRPC 服务。",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -15,7 +15,7 @@
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
     "semantic-release": "semantic-release",
-    "postinstall": "echo \"Thanks for using grpc-man!\" && curl -sf https://jeff-tian.jiwai.win/support-me.sh | sh",
+    "postinstall": "echo \"Thanks for using grpc-man!\"",
     "open": "/mnt/c/Windows/explorer.exe \"https://github.com/jeff-tian/grpc-man.git\"",
     "client": "ts-node src/index.ts localhost:5005 ./node_modules/grpc-health/src/health/health.proto"
   },
